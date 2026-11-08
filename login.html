@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SmartBin — Вход</title>
+
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+    <div class="login-page">
+
+        <div class="login-card">
+
+            <div class="logo">
+                ♻️ SmartBin
+            </div>
+
+            <h1>
+                Вход
+            </h1>
+
+            <p class="subtitle">
+                Войдите в свой аккаунт
+            </p>
+
+
+            <form id="loginForm">
+
+                <div class="form-group">
+
+                    <label for="login">
+                        Имя пользователя или Email
+                    </label>
+
+                    <input
+                        type="text"
+                        id="login"
+                        placeholder="Введите имя или email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Пароль
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Введите пароль"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    id="loginButton"
+                    class="login-button"
+                >
+                    Войти
+                </button>
+
+            </form>
+
+
+            <div
+                id="loginMessage"
+                class="message"
+            ></div>
+
+
+            <div class="divider">
+                <span>или</span>
+            </div>
+
+
+            <a
+                href="worker-login.html"
+                class="worker-button"
+            >
+                👷 Войти как работник
+            </a>
+
+
+            <p class="register-text">
+
+                Нет аккаунта?
+
+                <a href="register.html">
+                    Зарегистрироваться
+                </a>
+
+            </p>
+
+
+            <a
+                href="index.html"
+                class="back-link"
+            >
+                ← Вернуться на главную
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <script src="login.js"></script>
+
+</body>
+
+</html>

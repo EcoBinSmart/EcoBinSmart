@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SmartBin — Вход работника</title>
+
+    <link rel="stylesheet" href="worker-login.css">
+</head>
+
+<body>
+
+    <div class="worker-login-page">
+
+        <div class="worker-login-card">
+
+            <div class="logo">
+                ♻️ SmartBin
+            </div>
+
+            <div class="worker-icon">
+                👷
+            </div>
+
+            <h1>
+                Вход работника
+            </h1>
+
+            <p class="subtitle">
+                Панель управления SmartBin
+            </p>
+
+
+            <form id="workerLoginForm">
+
+                <div class="form-group">
+
+                    <label for="workerLogin">
+                        Имя пользователя или Email
+                    </label>
+
+                    <input
+                        type="text"
+                        id="workerLogin"
+                        placeholder="Введите имя или email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="workerPassword">
+                        Пароль
+                    </label>
+
+                    <input
+                        type="password"
+                        id="workerPassword"
+                        placeholder="Введите пароль"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    id="workerLoginButton"
+                    class="worker-login-button"
+                >
+                    Войти
+                </button>
+
+            </form>
+
+
+            <div
+                id="workerLoginMessage"
+                class="worker-login-message"
+            ></div>
+
+
+            <a
+                href="login.html"
+                class="back-link"
+            >
+                ← Вернуться к обычному входу
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <script src="worker-login.js"></script>
+
+</body>
+
+</html>

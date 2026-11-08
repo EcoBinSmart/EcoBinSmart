@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartBin — Рабочая панель</title>
+
+    <link rel="stylesheet" href="worker.css">
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div class="logo">
+            ♻️ SmartBin
+        </div>
+
+        <div class="worker-info">
+
+            <div class="worker-avatar">
+                👷
+            </div>
+
+            <div class="worker-text">
+
+                <strong id="workerName">
+                    Работник
+                </strong>
+
+                <span id="workerCompany">
+                    Компания
+                </span>
+
+            </div>
+
+            <button
+                id="logoutButton"
+                class="logout-button"
+            >
+                Выйти
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main class="main">
+
+        <section class="welcome">
+
+            <p class="label">
+                🚛 Рабочая панель
+            </p>
+
+            <h1>
+                Добро пожаловать,
+                <span id="welcomeName">
+                    работник
+                </span>
+            </h1>
+
+            <p>
+                Здесь можно просматривать состояние
+                SmartBin и отмечать очищенные мусорки.
+            </p>
+
+        </section>
+
+
+        <section class="statistics">
+
+            <div class="stat-card">
+
+                <span class="stat-icon">
+                    🗑️
+                </span>
+
+                <div>
+
+                    <strong id="totalBins">
+                        0
+                    </strong>
+
+                    <span>
+                        Всего мусорок
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-icon">
+                    🔴
+                </span>
+
+                <div>
+
+                    <strong id="fullBins">
+                        0
+                    </strong>
+
+                    <span>
+                        Заполнены
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-icon">
+                    🟡
+                </span>
+
+                <div>
+
+                    <strong id="almostBins">
+                        0
+                    </strong>
+
+                    <span>
+                        Почти заполнены
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="bins-section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <p class="section-label">
+                        SmartBin
+                    </p>
+
+                    <h2>
+                        Мусорки
+                    </h2>
+
+                </div>
+
+                <button
+                    id="refreshButton"
+                    class="refresh-button"
+                >
+                    🔄 Обновить
+                </button>
+
+            </div>
+
+
+            <div
+                id="workerBinsContainer"
+                class="bins-grid"
+            >
+
+                <div class="loading">
+                    Загрузка мусорок...
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <div
+        id="confirmModal"
+        class="modal hidden"
+    >
+
+        <div class="modal-content">
+
+            <div class="modal-icon">
+                🚛
+            </div>
+
+            <h2>
+                Мусорка очищена?
+            </h2>
+
+            <p>
+                После подтверждения заполненность
+                этой мусорки будет установлена в 0%.
+            </p>
+
+            <div class="modal-buttons">
+
+                <button
+                    id="cancelButton"
+                    class="cancel-button"
+                >
+                    Отмена
+                </button>
+
+                <button
+                    id="confirmButton"
+                    class="confirm-button"
+                >
+                    Да, очищена
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="worker.js"></script>
+
+</body>
+
+</html>

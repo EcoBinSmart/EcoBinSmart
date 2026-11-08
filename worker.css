@@ -1,0 +1,489 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7f6;
+    color: #17221b;
+}
+
+
+/* ================= HEADER ================= */
+
+.header {
+    height: 72px;
+    background: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 6%;
+
+    border-bottom: 1px solid #e6ebe7;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.worker-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.worker-avatar {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+
+    background: #eaf5ed;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+}
+
+.worker-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.worker-text strong {
+    font-size: 14px;
+}
+
+.worker-text span {
+    font-size: 12px;
+    color: #718078;
+}
+
+.logout-button {
+    margin-left: 15px;
+
+    border: none;
+    background: transparent;
+
+    color: #66736b;
+
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    color: #e34b4b;
+}
+
+
+/* ================= MAIN ================= */
+
+.main {
+    width: 88%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 55px 0 80px;
+}
+
+
+/* ================= WELCOME ================= */
+
+.welcome {
+    margin-bottom: 35px;
+}
+
+.label,
+.section-label {
+    color: #3c9b5f;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 10px;
+}
+
+.welcome h1 {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.welcome p:last-child {
+    color: #68746d;
+    max-width: 650px;
+    line-height: 1.6;
+}
+
+
+/* ================= STATISTICS ================= */
+
+.statistics {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 55px;
+}
+
+.stat-card {
+    background: white;
+
+    border: 1px solid #e7ece8;
+
+    border-radius: 16px;
+
+    padding: 23px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+
+    background: #edf6ef;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 23px;
+}
+
+.stat-card div {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-card strong {
+    font-size: 25px;
+}
+
+.stat-card span {
+    color: #758078;
+    font-size: 13px;
+}
+
+
+/* ================= SECTION ================= */
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 22px;
+}
+
+.section-header h2 {
+    font-size: 30px;
+}
+
+.refresh-button {
+    border: none;
+
+    background: white;
+
+    border: 1px solid #dce4df;
+
+    border-radius: 10px;
+
+    padding: 10px 15px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+.refresh-button:hover {
+    background: #f0f6f2;
+}
+
+
+/* ================= BINS ================= */
+
+.bins-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+.bin-card {
+    background: white;
+
+    border: 1px solid #e5ebe7;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.bin-card h3 {
+    font-size: 19px;
+
+    margin-bottom: 10px;
+}
+
+.location {
+    color: #68756d;
+
+    font-size: 14px;
+
+    margin-bottom: 20px;
+}
+
+
+/* ================= PROGRESS ================= */
+
+.progress-background {
+    width: 100%;
+    height: 12px;
+
+    background: #e9eeeb;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    margin-bottom: 12px;
+}
+
+.progress-fill {
+    height: 100%;
+
+    border-radius: 20px;
+
+    transition:
+        width 0.3s ease;
+}
+
+.progress-green {
+    background: #4eaa69;
+}
+
+.progress-yellow {
+    background: #e5ad45;
+}
+
+.progress-red {
+    background: #e45d5d;
+}
+
+
+.bin-details {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.fill {
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+.status {
+    font-size: 13px;
+}
+
+
+/* ================= CLEAR BUTTON ================= */
+
+.clear-button {
+    width: 100%;
+
+    border: none;
+
+    background: #1f8f4d;
+
+    color: white;
+
+    border-radius: 10px;
+
+    padding: 13px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.clear-button:hover {
+    background: #17783e;
+}
+
+.clear-button:disabled {
+    background: #aab5ae;
+
+    cursor: not-allowed;
+}
+
+
+/* ================= LOADING ================= */
+
+.loading {
+    grid-column: 1 / -1;
+
+    text-align: center;
+
+    padding: 50px;
+
+    color: #718078;
+}
+
+
+/* ================= MODAL ================= */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(0, 0, 0, 0.45);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 100;
+}
+
+.hidden {
+    display: none;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 420px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 35px;
+
+    text-align: center;
+}
+
+.modal-icon {
+    font-size: 45px;
+
+    margin-bottom: 15px;
+}
+
+.modal-content h2 {
+    margin-bottom: 10px;
+}
+
+.modal-content p {
+    color: #718078;
+
+    line-height: 1.5;
+
+    margin-bottom: 25px;
+}
+
+.modal-buttons {
+    display: flex;
+
+    gap: 10px;
+}
+
+.modal-buttons button {
+    flex: 1;
+
+    padding: 12px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+}
+
+.cancel-button {
+    background: white;
+
+    border: 1px solid #d8dfdb;
+}
+
+.confirm-button {
+    background: #1f8f4d;
+
+    border: none;
+
+    color: white;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 700px) {
+
+    .header {
+        padding: 0 20px;
+    }
+
+    .worker-text {
+        display: none;
+    }
+
+    .main {
+        width: 92%;
+
+        padding-top: 35px;
+    }
+
+    .welcome h1 {
+        font-size: 32px;
+    }
+
+    .statistics {
+        grid-template-columns: 1fr;
+    }
+
+    .bins-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-header {
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+}
