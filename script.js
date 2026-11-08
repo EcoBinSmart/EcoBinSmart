@@ -173,7 +173,7 @@ async function loadBins() {
                             status =
                                 "available";
 
-                        } else if (fill < 90 && fill >= 60) {
+                        } else if (fill < 80 && fill >= 60) {
 
                             status =
                                 "almost";
@@ -381,7 +381,7 @@ function showBins(list) {
             card.innerHTML = `
 
                 <h3>
-                    🗑️ SmartBin #${bin.id}
+                    🗑️ EcoBin #${bin.id}
                 </h3>
 
                 <div class="bin-location">
