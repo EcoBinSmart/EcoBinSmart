@@ -381,7 +381,7 @@ function showBins(list) {
             card.innerHTML = `
 
                 <h3>
-                    🗑️ EcoBin #${bin.id}
+                    🗑️ SmartBin #${bin.id}
                 </h3>
 
                 <div class="bin-location">
