@@ -310,33 +310,53 @@ function getMarkerColor(status) {
 
 
 // Создание HTML метки
+
 function createBinMarkerIcon(status) {
 
-    const color =
-        getMarkerColor(status);
+    const color = getMarkerColor(status);
 
     return L.divIcon({
 
-        className: "custom-bin-marker",
+        className: "smartbin-marker",
 
         html: `
-            <div style="
-                width: 25px;
-                height: 25px;
-                background: ${color};
-                border: 3px solid white;
-                border-radius: 50%;
-                box-shadow: 0 2px 7px rgba(0,0,0,0.35);
-            "></div>
+            <svg
+                width="42"
+                height="52"
+                viewBox="0 0 42 52"
+                xmlns="http://www.w3.org/2000/svg">
+
+                <path
+                    d="M21 1
+                       C9.95 1 1 9.95 1 21
+                       C1 35 21 51 21 51
+                       C21 51 41 35 41 21
+                       C41 9.95 32.05 1 21 1Z"
+                    fill="${color}"
+                    stroke="white"
+                    stroke-width="2"/>
+
+                <circle
+                    cx="21"
+                    cy="20"
+                    r="10"
+                    fill="white"/>
+
+                <circle
+                    cx="21"
+                    cy="20"
+                    r="5"
+                    fill="${color}"/>
+
+            </svg>
         `,
 
-        iconSize: [25, 25],
-
-        iconAnchor: [12, 12],
-
-        popupAnchor: [0, -12]
+        iconSize: [42, 52],
+        iconAnchor: [21, 51],
+        popupAnchor: [0, -48]
     });
 }
+
 
 
 // Обновление меток на карте
