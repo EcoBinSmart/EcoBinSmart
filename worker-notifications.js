@@ -2,14 +2,14 @@
 // =====================================================
 // SMARTBIN — УВЕДОМЛЕНИЯ ДЛЯ РАБОТНИКОВ
 // =====================================================
+const BASEROW_TOKEN =
+    "miWRZu9FvwNa7F18awY4BtyHFM7xShOd";
 
-const WORKER_NOTIFICATIONS_TABLE_ID = "1335863";
+const WORKERS_TABLE_ID =
+    "1335863";
 
-const NOTIFICATIONS_CHECK_INTERVAL = 30000;
-
-const NOTIFICATIONS_STORAGE_KEY = "smartbin_notification_snapshot";
-
-
+const BASEROW_API =
+    "https://api.baserow.io/api/database/rows/table/";
 // =====================================================
 // ПОЛУЧЕНИЕ СОСТОЯНИЯ МУСОРОК
 // =====================================================
