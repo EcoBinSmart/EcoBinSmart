@@ -934,4 +934,4 @@ document.addEventListener(
         loadCurrentUser();
 
     }
-);ы
+);
