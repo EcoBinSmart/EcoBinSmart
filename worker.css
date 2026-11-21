@@ -487,3 +487,204 @@ body {
     }
 
 }
+/* =====================================
+   УВЕДОМЛЕНИЯ РАБОТНИКА
+===================================== */
+
+.worker-notifications {
+    position: relative;
+    display: inline-block;
+    z-index: 1000;
+}
+
+.notification-bell {
+    position: relative;
+
+    width: 43px;
+    height: 43px;
+
+    border: 1px solid #e0e8e1;
+    border-radius: 12px;
+
+    background: white;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.notification-bell:hover {
+    background: #f0f8f1;
+    border-color: #299452;
+}
+
+.notification-count {
+    position: absolute;
+
+    top: -6px;
+    right: -6px;
+
+    min-width: 19px;
+    height: 19px;
+
+    padding: 0 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #dc4545;
+    color: white;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.notification-count:empty {
+    display: none;
+}
+
+.notification-panel {
+    display: none;
+
+    position: absolute;
+
+    top: 55px;
+    right: 0;
+
+    width: 350px;
+    max-height: 470px;
+
+    background: white;
+
+    border: 1px solid #e2e9e3;
+    border-radius: 15px;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+
+    overflow: hidden;
+}
+
+.notification-panel.show {
+    display: block;
+}
+
+.notification-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 17px;
+
+    border-bottom: 1px solid #edf0ed;
+}
+
+.notification-panel-header h3 {
+    font-size: 17px;
+}
+
+.notification-panel-header button {
+    border: none;
+    background: none;
+
+    color: #299452;
+
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.notification-list {
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    padding: 15px 17px;
+
+    border-bottom: 1px solid #edf0ed;
+
+    cursor: pointer;
+}
+
+.notification-item:hover {
+    background: #f7faf7;
+}
+
+.notification-item.unread {
+    background: #f0f8f1;
+    border-left: 3px solid #299452;
+}
+
+.notification-item h4 {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.notification-item p {
+    color: #657169;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.notification-item small {
+    display: block;
+
+    margin-top: 8px;
+
+    color: #929b94;
+    font-size: 11px;
+}
+
+.notifications-empty {
+    padding: 25px;
+    text-align: center;
+
+    color: #8a958d;
+    font-size: 13px;
+}
+
+.notification-settings {
+    padding: 13px;
+
+    border-top: 1px solid #edf0ed;
+}
+
+.notification-settings button {
+    width: 100%;
+
+    padding: 11px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #299452;
+    color: white;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.notification-settings button:hover {
+    background: #217b43;
+}
+
+@media (max-width: 500px) {
+
+    .notification-panel {
+        position: fixed;
+
+        top: 80px;
+        right: 10px;
+        left: 10px;
+
+        width: auto;
+    }
+
+}
