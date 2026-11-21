@@ -448,45 +448,6 @@ body {
 
     color: white;
 }
-
-
-/* ================= MOBILE ================= */
-
-@media (max-width: 700px) {
-
-    .header {
-        padding: 0 20px;
-    }
-
-    .worker-text {
-        display: none;
-    }
-
-    .main {
-        width: 92%;
-
-        padding-top: 35px;
-    }
-
-    .welcome h1 {
-        font-size: 32px;
-    }
-
-    .statistics {
-        grid-template-columns: 1fr;
-    }
-
-    .bins-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .section-header {
-        align-items: flex-start;
-
-        gap: 15px;
-    }
-
-}
 /* =====================================
    УВЕДОМЛЕНИЯ РАБОТНИКА
 ===================================== */
@@ -685,6 +646,45 @@ body {
         left: 10px;
 
         width: auto;
+    }
+
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 700px) {
+
+    .header {
+        padding: 0 20px;
+    }
+
+    .worker-text {
+        display: none;
+    }
+
+    .main {
+        width: 92%;
+
+        padding-top: 35px;
+    }
+
+    .welcome h1 {
+        font-size: 32px;
+    }
+
+    .statistics {
+        grid-template-columns: 1fr;
+    }
+
+    .bins-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-header {
+        align-items: flex-start;
+
+        gap: 15px;
     }
 
 }
