@@ -1,1 +1,291 @@
+<!DOCTYPE html>
+<html lang="ru">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EcoBinSmart — Карта мусорок</title>
+
+    <link rel="stylesheet" href="worker-map.css">
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+</head>
+
+<body>
+
+<header class="header">
+
+    <a href="worker.html" class="logo">
+        ♻️ EcoBinSmart
+    </a>
+
+    <div class="header-right">
+
+        <div class="worker-info">
+
+            <div class="worker-avatar">👷</div>
+
+            <div class="worker-text">
+
+                <strong id="workerName">Работник</strong>
+
+                <span id="workerCompany">Компания</span>
+
+            </div>
+
+        </div>
+
+        <a href="worker.html" class="back-button">
+            ← Рабочая панель
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="main">
+
+    <!-- ЗАГОЛОВОК -->
+
+    <section class="welcome">
+
+        <p class="label">🚛 РАБОЧАЯ ПАНЕЛЬ</p>
+
+        <h1>Карта мусорок</h1>
+
+        <p>
+            Просматривайте расположение мусорок
+            и контролируйте их заполненность.
+        </p>
+
+    </section>
+
+
+    <!-- СТАТИСТИКА -->
+
+    <section class="statistics">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">🗑️</div>
+
+            <div>
+                <strong id="totalBins">0</strong>
+                <span>Всего мусорок</span>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">🟡</div>
+
+            <div>
+                <strong id="almostBins">0</strong>
+                <span>Почти заполнены</span>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">🔴</div>
+
+            <div>
+                <strong id="fullBins">0</strong>
+                <span>Заполнены</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- КАРТА -->
+
+    <section class="map-section">
+
+        <div class="map-top">
+
+            <div>
+
+                <h2>Расположение мусорок</h2>
+
+                <p>
+                    Нажмите на метку, чтобы посмотреть информацию
+                </p>
+
+            </div>
+
+            <button
+                id="refreshButton"
+                class="refresh-button"
+                type="button"
+            >
+                ↻ Обновить
+            </button>
+
+        </div>
+
+
+        <div class="map-layout">
+
+            <!-- БОКОВАЯ ПАНЕЛЬ -->
+
+            <aside class="map-sidebar">
+
+                <h3>Состояние мусорок</h3>
+
+                <div class="filters">
+
+                    <button
+                        class="filter-button active"
+                        data-filter="all"
+                    >
+                        Все
+                    </button>
+
+                    <button
+                        class="filter-button"
+                        data-filter="available"
+                    >
+                        🟢 Можно использовать
+                    </button>
+
+                    <button
+                        class="filter-button"
+                        data-filter="almost"
+                    >
+                        🟡 Почти заполнена
+                    </button>
+
+                    <button
+                        class="filter-button"
+                        data-filter="full"
+                    >
+                        🔴 Заполнена
+                    </button>
+
+                </div>
+
+
+                <div class="sidebar-divider"></div>
+
+
+                <div class="list-header">
+
+                    <h3>Список мусорок</h3>
+
+                    <span id="visibleCount">0</span>
+
+                </div>
+
+
+                <div
+                    id="binsList"
+                    class="bins-list"
+                >
+
+                    <div class="list-loading">
+                        Загрузка мусорок...
+                    </div>
+
+                </div>
+
+            </aside>
+
+
+            <!-- САМА КАРТА -->
+
+            <div class="map-container">
+
+                <div id="workerMap"></div>
+
+                <div
+                    id="mapLoading"
+                    class="map-loading"
+                >
+                    Загрузка карты...
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ЛЕГЕНДА -->
+
+        <div class="map-legend">
+
+            <div>
+                <span class="legend-dot green"></span>
+                Можно использовать
+            </div>
+
+            <div>
+                <span class="legend-dot yellow"></span>
+                Почти заполнена
+            </div>
+
+            <div>
+                <span class="legend-dot red"></span>
+                Заполнена
+            </div>
+
+        </div>
+
+
+        <div class="map-footer">
+
+            <span id="lastUpdate">
+                Последнее обновление: — 
+            </span>
+
+            <span>
+                Автообновление: 30 секунд
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- НАЗАД -->
+
+    <div class="bottom-navigation">
+
+        <a href="worker.html" class="bottom-back">
+            ← Вернуться в рабочую панель
+        </a>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-logo">
+        ♻️ EcoBinSmart
+    </div>
+
+    <p>Умные решения для чистого города.</p>
+
+    <span>2026 EcoBinSmart Project</span>
+
+</footer>
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="worker-map.js"></script>
+
+</body>
+</html>
