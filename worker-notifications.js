@@ -324,12 +324,22 @@ document.addEventListener(
 
         requestNotificationPermission();
 
-        // Проверка каждые 30 секунд
-        setInterval(
-            checkWorkerNotifications,
-            NOTIFICATIONS_CHECK_INTERVAL
-        );
+        // Каждые 30 секунд загружаем свежие данные из Baserow
+        setInterval(async function () {
+
+            if (typeof window.loadWorkerBins === "function") {
+
+                await window.loadWorkerBins();
+
+            } else {
+
+                console.error(
+                    "Не найдена функция loadWorkerBins"
+                );
+
+            }
+
+        }, NOTIFICATIONS_CHECK_INTERVAL);
 
     }
 );
-
