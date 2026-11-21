@@ -636,6 +636,174 @@ body {
     background: #217b43;
 }
 
+
+/* =====================================
+   КАРТА МУСОРОК — ПЕРЕХОД
+===================================== */
+
+.worker-map-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 25px;
+
+    padding: 25px 30px;
+    margin-bottom: 55px;
+
+    background: linear-gradient(
+        120deg,
+        #ffffff 0%,
+        #f0f8f2 100%
+    );
+
+    border: 1px solid #dcebe0;
+    border-radius: 18px;
+
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.03);
+
+    transition: 0.25s ease;
+}
+
+.worker-map-link:hover {
+    border-color: #9acbab;
+
+    box-shadow:
+        0 8px 25px rgba(31, 143, 77, 0.08);
+
+    transform: translateY(-2px);
+}
+
+
+/* ЛЕВАЯ ЧАСТЬ */
+
+.worker-map-link-info {
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+}
+
+.worker-map-icon {
+    width: 58px;
+    height: 58px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e3f3e8;
+
+    border-radius: 15px;
+
+    font-size: 29px;
+}
+
+.worker-map-link-info h2 {
+    font-size: 20px;
+
+    margin-bottom: 7px;
+
+    color: #17221b;
+}
+
+.worker-map-link-info p {
+    color: #718078;
+
+    font-size: 13px;
+    line-height: 1.5;
+
+    max-width: 450px;
+}
+
+
+/* КНОПКА */
+
+.worker-map-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    padding: 14px 22px;
+
+    background: #1f8f4d;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 11px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    transition: 0.2s ease;
+}
+
+.worker-map-button:hover {
+    background: #17783e;
+
+    box-shadow:
+        0 5px 15px rgba(31, 143, 77, 0.2);
+}
+
+.worker-map-button span {
+    font-size: 19px;
+
+    transition: transform 0.2s ease;
+}
+
+.worker-map-button:hover span {
+    transform: translateX(4px);
+}
+
+
+/* МОБИЛЬНАЯ ВЕРСИЯ */
+
+@media (max-width: 700px) {
+
+    .worker-map-link {
+        flex-direction: column;
+        align-items: stretch;
+
+        padding: 20px;
+
+        gap: 20px;
+    }
+
+    .worker-map-link-info {
+        gap: 13px;
+    }
+
+    .worker-map-icon {
+        width: 50px;
+        height: 50px;
+
+        font-size: 25px;
+    }
+
+    .worker-map-link-info h2 {
+        font-size: 17px;
+    }
+
+    .worker-map-link-info p {
+        font-size: 12px;
+    }
+
+    .worker-map-button {
+        width: 100%;
+    }
+
+}
+
+
 @media (max-width: 500px) {
 
     .notification-panel {
