@@ -5,11 +5,15 @@
 const BASEROW_TOKEN =
     "miWRZu9FvwNa7F18awY4BtyHFM7xShOd";
 
-const WORKERS_TABLE_ID =
-    "1335863";
-
 const BASEROW_API =
     "https://api.baserow.io/api/database/rows/table/";
+
+const WORKER_NOTIFICATIONS_TABLE_ID = "1335863";
+
+const NOTIFICATIONS_CHECK_INTERVAL = 30000;
+
+const NOTIFICATIONS_STORAGE_KEY = "smartbin_notification_snapshot";
+
 // =====================================================
 // ПОЛУЧЕНИЕ СОСТОЯНИЯ МУСОРОК
 // =====================================================
