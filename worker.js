@@ -186,7 +186,7 @@ function getStatus(fill) {
     }
 
 
-    if (fill < 90) {
+    if (fill < 80 && fill > 59) {
 
         return "almost";
     }
