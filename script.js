@@ -188,29 +188,40 @@ async function loadBins() {
 
                     return {
 
-                        id:
-                            id ?? "—",
-
-                        location:
-                            location,
-
-                        fill:
-                            fill,
-
-                        status:
-                            normalizeStatus(status)
-                    };
+                            id:
+                                id ?? "—",
+                        
+                            location:
+                                location,
+                        
+                            fill:
+                                fill,
+                        
+                            status:
+                                normalizeStatus(status),
+                        
+                            latitude:
+                                Number(row["Latitude"]),
+                        
+                            longitude:
+                                Number(row["Longitude"])
+                        };
                 }
             );
 
 
         console.log(
-            "Мусорки загружены:",
-            bins
-        );
-
-
-        showBins(bins);
+                    "Мусорки загружены:",
+                    bins
+                );
+                
+                
+                // Показываем карточки
+                showBins(bins);
+                
+                
+                // Показываем мусорки на карте
+                updateBinsMap(bins);
 
 
     } catch (error) {
@@ -229,6 +240,228 @@ async function loadBins() {
             </div>
         `;
     }
+}
+
+// =====================================================
+// OPENSTREETMAP + LEAFLET
+// =====================================================
+
+let binsMap = null;
+
+let binsMarkers = [];
+
+
+// Инициализация карты
+function initializeBinsMap() {
+
+    const mapElement =
+        document.getElementById("binsMap");
+
+    if (!mapElement) {
+        console.error("Карта #binsMap не найдена.");
+        return;
+    }
+
+    if (typeof L === "undefined") {
+        console.error("Leaflet не загружен.");
+        return;
+    }
+
+    if (binsMap) {
+        return;
+    }
+
+    // Центр карты — Кокшетау
+    binsMap = L.map("binsMap").setView(
+        [53.2833, 69.3833],
+        13
+    );
+
+    // Слой OpenStreetMap
+    L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+
+            maxZoom: 19
+        }
+    ).addTo(binsMap);
+}
+
+
+// Цвет метки
+function getMarkerColor(status) {
+
+    if (status === "available") {
+        return "#299452";
+    }
+
+    if (status === "almost") {
+        return "#e5ae27";
+    }
+
+    if (status === "full") {
+        return "#dc4545";
+    }
+
+    return "#737d76";
+}
+
+
+// Создание HTML метки
+function createBinMarkerIcon(status) {
+
+    const color =
+        getMarkerColor(status);
+
+    return L.divIcon({
+
+        className: "custom-bin-marker",
+
+        html: `
+            <div style="
+                width: 25px;
+                height: 25px;
+                background: ${color};
+                border: 3px solid white;
+                border-radius: 50%;
+                box-shadow: 0 2px 7px rgba(0,0,0,0.35);
+            "></div>
+        `,
+
+        iconSize: [25, 25],
+
+        iconAnchor: [12, 12],
+
+        popupAnchor: [0, -12]
+    });
+}
+
+
+// Обновление меток на карте
+function updateBinsMap(list) {
+
+    initializeBinsMap();
+
+    if (!binsMap) {
+        return;
+    }
+
+    // Удаляем старые метки
+    binsMarkers.forEach(function(marker) {
+        binsMap.removeLayer(marker);
+    });
+
+    binsMarkers = [];
+
+    const validCoordinates = [];
+
+    list.forEach(function(bin) {
+
+        const latitude =
+            bin.latitude;
+
+        const longitude =
+            bin.longitude;
+
+        // Проверяем координаты
+        if (
+            !Number.isFinite(latitude) ||
+            !Number.isFinite(longitude) ||
+            latitude < -90 ||
+            latitude > 90 ||
+            longitude < -180 ||
+            longitude > 180 ||
+            (latitude === 0 && longitude === 0)
+        ) {
+            console.warn(
+                "У мусорки отсутствуют корректные координаты:",
+                bin.id
+            );
+
+            return;
+        }
+
+        const marker =
+            L.marker(
+                [latitude, longitude],
+                {
+                    icon: createBinMarkerIcon(
+                        bin.status
+                    )
+                }
+            );
+
+        // Карточка при нажатии
+        marker.bindPopup(`
+            <div class="map-popup">
+
+                <h4>
+                    🗑️ SmartBin #${escapeHTML(bin.id)}
+                </h4>
+
+                <p>
+                    📍 ${escapeHTML(bin.location)}
+                </p>
+
+                <p>
+                    <strong>Заполненность:</strong>
+                    ${bin.fill}%
+                </p>
+
+                <p>
+                    <strong>Статус:</strong>
+                    ${getStatusText(bin.status)}
+                </p>
+
+            </div>
+        `);
+
+        marker.addTo(binsMap);
+
+        binsMarkers.push(marker);
+
+        validCoordinates.push([
+            latitude,
+            longitude
+        ]);
+    });
+
+    // Автоматически показываем все найденные мусорки
+    if (validCoordinates.length > 0) {
+
+        if (validCoordinates.length === 1) {
+
+            binsMap.setView(
+                validCoordinates[0],
+                16
+            );
+
+        } else {
+
+            binsMap.fitBounds(
+                validCoordinates,
+                {
+                    padding: [40, 40],
+                    maxZoom: 16
+                }
+            );
+        }
+
+    } else {
+
+        // Если координат пока нет — показываем Кокшетау
+        binsMap.setView(
+            [53.2833, 69.3833],
+            13
+        );
+    }
+
+    // Исправляем отображение размеров карты
+    setTimeout(function() {
+        binsMap.invalidateSize();
+    }, 100);
 }
 
 
