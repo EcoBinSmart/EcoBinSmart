@@ -1,0 +1,792 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7f6;
+    color: #17221b;
+}
+
+
+/* ================= HEADER ================= */
+
+.header {
+    height: 72px;
+    background: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 6%;
+
+    border-bottom: 1px solid #e6ebe7;
+}
+
+.logo {
+    color: #17221b;
+    font-size: 22px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.worker-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.worker-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #eaf5ed;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+}
+
+.worker-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.worker-text strong {
+    font-size: 14px;
+}
+
+.worker-text span {
+    font-size: 12px;
+    color: #718078;
+}
+
+.back-button {
+    padding: 11px 16px;
+
+    background: #1f8f4d;
+    color: white;
+
+    text-decoration: none;
+    border-radius: 10px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    transition: 0.2s;
+}
+
+.back-button:hover {
+    background: #17783e;
+}
+
+
+/* ================= MAIN ================= */
+
+.main {
+    width: 88%;
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 50px 0 75px;
+}
+
+
+/* ================= WELCOME ================= */
+
+.welcome {
+    margin-bottom: 32px;
+}
+
+.label {
+    color: #3c9b5f;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    margin-bottom: 10px;
+}
+
+.welcome h1 {
+    font-size: 38px;
+    margin-bottom: 12px;
+}
+
+.welcome p:last-child {
+    color: #68746d;
+    line-height: 1.6;
+}
+
+
+/* ================= STATISTICS ================= */
+
+.statistics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+
+    border: 1px solid #e7ece8;
+    border-radius: 16px;
+
+    padding: 20px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+
+    background: #edf6ef;
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 23px;
+}
+
+.stat-card div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-card strong {
+    font-size: 25px;
+}
+
+.stat-card span {
+    color: #758078;
+    font-size: 13px;
+}
+
+
+/* ================= MAP SECTION ================= */
+
+.map-section {
+    background: white;
+
+    border: 1px solid #e5ebe7;
+    border-radius: 18px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.map-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.map-top h2 {
+    font-size: 23px;
+    margin-bottom: 7px;
+}
+
+.map-top p {
+    color: #718078;
+    font-size: 13px;
+}
+
+.refresh-button {
+    padding: 11px 16px;
+
+    background: white;
+    border: 1px solid #dce4df;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+    cursor: pointer;
+
+    white-space: nowrap;
+}
+
+.refresh-button:hover {
+    background: #f0f6f2;
+}
+
+
+/* ================= MAP LAYOUT ================= */
+
+.map-layout {
+    display: grid;
+
+    grid-template-columns: 280px minmax(0, 1fr);
+
+    gap: 20px;
+
+    height: 590px;
+}
+
+
+/* ================= SIDEBAR ================= */
+
+.map-sidebar {
+    background: #fafcfb;
+
+    border: 1px solid #e7ece8;
+    border-radius: 14px;
+
+    padding: 17px;
+
+    display: flex;
+    flex-direction: column;
+
+    min-height: 0;
+}
+
+.map-sidebar > h3 {
+    font-size: 17px;
+    margin-bottom: 17px;
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-button {
+    width: 100%;
+
+    padding: 11px 12px;
+
+    background: white;
+
+    border: 1px solid #e2e9e3;
+    border-radius: 9px;
+
+    text-align: left;
+
+    font-size: 12px;
+    color: #59645d;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.filter-button:hover {
+    border-color: #299452;
+    background: #f0f8f2;
+}
+
+.filter-button.active {
+    background: #e7f5eb;
+    border-color: #299452;
+
+    color: #207b40;
+    font-weight: 700;
+}
+
+.sidebar-divider {
+    height: 1px;
+    background: #e5ebe7;
+
+    margin: 20px 0;
+}
+
+.list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 12px;
+}
+
+.list-header h3 {
+    font-size: 15px;
+}
+
+.list-header span {
+    padding: 4px 9px;
+
+    background: #e7f5eb;
+    color: #278649;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* ================= BINS LIST ================= */
+
+.bins-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+
+    overflow-y: auto;
+    min-height: 0;
+    flex: 1;
+
+    padding-right: 4px;
+}
+
+.bin-list-item {
+    padding: 13px;
+
+    background: white;
+
+    border: 1px solid #e5ebe7;
+    border-radius: 11px;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.bin-list-item:hover {
+    border-color: #299452;
+    background: #f5faf6;
+}
+
+.bin-list-item.selected {
+    border-color: #299452;
+    background: #edf7ef;
+}
+
+.bin-list-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 8px;
+
+    margin-bottom: 8px;
+}
+
+.bin-list-title strong {
+    font-size: 13px;
+}
+
+.bin-list-fill {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.bin-list-location {
+    color: #718078;
+    font-size: 11px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.bin-list-status {
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.bin-list-status.available {
+    color: #299452;
+}
+
+.bin-list-status.almost {
+    color: #c08b24;
+}
+
+.bin-list-status.full {
+    color: #d95353;
+}
+
+.list-loading,
+.list-empty {
+    padding: 25px 10px;
+
+    text-align: center;
+
+    color: #718078;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* ================= MAP ================= */
+
+.map-container {
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 14px;
+    border: 1px solid #e0e8e2;
+
+    min-width: 0;
+}
+
+#workerMap {
+    width: 100%;
+    height: 100%;
+
+    z-index: 1;
+}
+
+.map-loading {
+    position: absolute;
+    inset: 0;
+
+    z-index: 500;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255,255,255,0.88);
+
+    color: #299452;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.map-loading.hidden {
+    display: none;
+}
+
+
+/* ================= CUSTOM MARKERS ================= */
+
+.custom-bin-marker {
+    background: transparent;
+    border: none;
+}
+
+.bin-marker-pin {
+    width: 36px;
+    height: 36px;
+
+    border: 3px solid white;
+    border-radius: 50% 50% 50% 0;
+
+    transform: rotate(-45deg);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+}
+
+.bin-marker-pin::after {
+    content: "♻";
+
+    color: white;
+    font-size: 17px;
+
+    transform: rotate(45deg);
+}
+
+.bin-marker-pin.available {
+    background: #299452;
+}
+
+.bin-marker-pin.almost {
+    background: #d5a72c;
+}
+
+.bin-marker-pin.full {
+    background: #d95353;
+}
+
+
+/* ================= POPUP ================= */
+
+.leaflet-popup-content-wrapper {
+    border-radius: 12px;
+}
+
+.leaflet-popup-content {
+    font-family: Arial, sans-serif;
+    margin: 14px;
+}
+
+.map-popup h3 {
+    font-size: 16px;
+    margin-bottom: 9px;
+    color: #17221b;
+}
+
+.map-popup p {
+    font-size: 13px;
+    color: #68746d;
+    margin: 6px 0;
+}
+
+.map-popup strong {
+    color: #17221b;
+}
+
+.popup-progress {
+    width: 100%;
+    height: 8px;
+
+    background: #e9eeeb;
+    border-radius: 20px;
+
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.popup-progress-fill {
+    height: 100%;
+    border-radius: 20px;
+}
+
+
+/* ================= LEGEND ================= */
+
+.map-legend {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 24px;
+
+    margin-top: 20px;
+}
+
+.map-legend > div {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    color: #59645d;
+    font-size: 12px;
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+}
+
+.legend-dot.green {
+    background: #299452;
+}
+
+.legend-dot.yellow {
+    background: #d5a72c;
+}
+
+.legend-dot.red {
+    background: #d95353;
+}
+
+
+/* ================= FOOTER MAP ================= */
+
+.map-footer {
+    display: flex;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-top: 18px;
+    padding-top: 15px;
+
+    border-top: 1px solid #edf0ed;
+
+    color: #8a958d;
+    font-size: 11px;
+}
+
+
+/* ================= BOTTOM NAVIGATION ================= */
+
+.bottom-navigation {
+    margin-top: 25px;
+}
+
+.bottom-back {
+    display: inline-block;
+
+    color: #299452;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.bottom-back:hover {
+    color: #17783e;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer {
+    padding: 30px;
+
+    background: #111712;
+    color: white;
+
+    text-align: center;
+}
+
+.footer-logo {
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+footer p {
+    color: #aeb8b1;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+footer span {
+    color: #737e77;
+    font-size: 11px;
+}
+
+
+/* ================= TABLET ================= */
+
+@media (max-width: 950px) {
+
+    .main {
+        width: 92%;
+    }
+
+    .map-layout {
+        grid-template-columns: 230px minmax(0, 1fr);
+        height: 550px;
+    }
+
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 700px) {
+
+    .header {
+        padding: 0 4%;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .header-right {
+        gap: 10px;
+    }
+
+    .worker-avatar,
+    .worker-text {
+        display: none;
+    }
+
+    .back-button {
+        padding: 10px 11px;
+        font-size: 11px;
+    }
+
+    .main {
+        width: 92%;
+        padding-top: 35px;
+    }
+
+    .welcome h1 {
+        font-size: 31px;
+    }
+
+    .statistics {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 15px;
+    }
+
+    .map-section {
+        padding: 15px;
+    }
+
+    .map-top {
+        align-items: flex-start;
+    }
+
+    .map-top h2 {
+        font-size: 18px;
+    }
+
+    .map-top p {
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+    .refresh-button {
+        padding: 9px;
+        font-size: 12px;
+    }
+
+    .map-layout {
+        display: flex;
+        flex-direction: column;
+
+        height: auto;
+    }
+
+    .map-sidebar {
+        height: 330px;
+    }
+
+    .map-container {
+        height: 430px;
+    }
+
+    .filters {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .filter-button {
+        font-size: 11px;
+    }
+
+    .map-legend {
+        gap: 12px;
+    }
+
+    .map-legend > div {
+        font-size: 11px;
+    }
+
+    .map-footer {
+        flex-direction: column;
+    }
+
+}
