@@ -1,11 +1,6 @@
 // =====================================================
 // SMARTBIN — УВЕДОМЛЕНИЯ ДЛЯ РАБОТНИКОВ
 // =====================================================
-const BASEROW_TOKEN =
-    "miWRZu9FvwNa7F18awY4BtyHFM7xShOd";
-
-const BASEROW_API =
-    "https://api.baserow.io/api/database/rows/table/";
 
 const WORKER_NOTIFICATIONS_TABLE_ID = "1335863";
 
