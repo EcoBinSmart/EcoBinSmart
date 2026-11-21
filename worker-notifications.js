@@ -302,11 +302,12 @@
 
                 if (
                     previous.fill < 60 &&
-                    current.fill >= 60
+                    current.fill >= 60 &&
+                    current.fill < 80
                 ) {
                     const success =
                         await createWorkerNotification(
-                            "🟡 Мусорка заполнена на 60%",
+                            "🟡 Мусорка почти зполнена",
 
                             `Мусорка #${id} (${location}) заполнена на ${current.fill}%.`,
 
@@ -332,7 +333,7 @@
                 ) {
                     const success =
                         await createWorkerNotification(
-                            "🔴 Мусорка заполнена на 80%",
+                            "🔴 Мусорка заполнена",
 
                             `Мусорка #${id} (${location}) заполнена на ${current.fill}%. Требуется внимание.`,
 
