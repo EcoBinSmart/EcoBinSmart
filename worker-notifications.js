@@ -48,9 +48,9 @@
                         ),
 
                 cycle80:
-                    fill > 80
+                    fill < 80
                         ? (
-                            previous && previous.fill > 80 
+                            previous && previous.fill < 80 
                                 ? previous.cycle80 || previous.snapshotAt || now
                                 : now
                         )
