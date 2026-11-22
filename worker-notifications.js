@@ -303,7 +303,7 @@
                 if (
                     previous.fill < 60 &&
                     current.fill >= 60 &&
-                    current.fill !> 80
+                    current.fill < 80
                 ) {
                     const success =
                         await createWorkerNotification(
