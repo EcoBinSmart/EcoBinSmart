@@ -1,0 +1,27 @@
+
+{
+  "id": "/EcoBinSmart/",
+  "name": "SmartBin",
+  "short_name": "SmartBin",
+  "description": "Умная система мониторинга мусорных баков",
+  "start_url": "/EcoBinSmart/",
+  "scope": "/EcoBinSmart/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f5f8f5",
+  "theme_color": "#299452",
+  "icons": [
+    {
+      "src": "/EcoBinSmart/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/EcoBinSmart/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
