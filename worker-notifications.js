@@ -1,12 +1,12 @@
+
 (function () {
     "use strict";
 
     // =====================================================
-    // SMARTBIN — ИНТЕРФЕЙС УВЕДОМЛЕНИЙ
+    // SMARTBIN — ИНТЕРФЕЙС УВЕДОМЛЕНИЙ + ONESIGNAL
     // =====================================================
 
     const TABLE_ID = "1335863";
-
     const CHECK_INTERVAL = 30000;
 
     const READ_STORAGE_KEY =
@@ -16,14 +16,30 @@
         "smartbin_worker_seen_notifications_v1";
 
     let notifications = [];
-
     let readIds = new Set();
-
     let seenIds = new Set();
 
     let loading = false;
-
     let initialized = false;
+    let oneSignalInstance = null;
+
+
+    // =====================================================
+    // ПОДКЛЮЧЕНИЕ ONESIGNAL
+    // =====================================================
+
+    window.OneSignalDeferred =
+        window.OneSignalDeferred || [];
+
+    OneSignalDeferred.push(function (OneSignal) {
+
+        oneSignalInstance = OneSignal;
+
+        updatePermissionButton();
+
+        console.log("SmartBin: OneSignal готов.");
+
+    });
 
 
     // =====================================================
@@ -45,10 +61,7 @@
 
         } catch (error) {
 
-            console.error(
-                "Ошибка чтения localStorage:",
-                error
-            );
+            console.error("Ошибка чтения localStorage:", error);
 
             return new Set();
         }
@@ -65,31 +78,179 @@
 
 
     function loadReadIds() {
-
-        readIds = loadStoredIds(
-            READ_STORAGE_KEY
-        );
+        readIds = loadStoredIds(READ_STORAGE_KEY);
     }
 
 
     function loadSeenIds() {
-
-        seenIds = loadStoredIds(
-            SEEN_STORAGE_KEY
-        );
+        seenIds = loadStoredIds(SEEN_STORAGE_KEY);
     }
 
 
     // =====================================================
-    // ПОЛУЧЕНИЕ УВЕДОМЛЕНИЙ ИЗ BASEROW
+    // ПОДПИСКА НА ONESIGNAL
+    // =====================================================
+
+    async function enableBrowserNotifications() {
+
+        const button = document.getElementById(
+            "enableBrowserNotifications"
+        );
+
+        if (!oneSignalInstance) {
+
+            alert(
+                "OneSignal ещё загружается. Подожди несколько секунд и попробуй снова."
+            );
+
+            return;
+        }
+
+        try {
+
+            button.disabled = true;
+            button.textContent = "⏳ Подключение...";
+
+            const OneSignal = oneSignalInstance;
+
+            // Проверяем поддержку Web Push
+            const supported =
+                OneSignal.Notifications.isPushSupported();
+
+            if (!supported) {
+
+                alert(
+                    "Этот браузер или режим работы устройства не поддерживает Web Push."
+                );
+
+                return;
+            }
+
+            // Проверяем разрешение браузера
+            if (!OneSignal.Notifications.permission) {
+
+                await OneSignal.Notifications.requestPermission();
+            }
+
+            // Если пользователь разрешил уведомления,
+            // регистрируем подписку
+            if (OneSignal.Notifications.permission) {
+
+                await OneSignal.User.PushSubscription.optIn();
+
+                updatePermissionButton();
+
+                if (OneSignal.User.PushSubscription.optedIn) {
+
+                    alert(
+                        "✅ Push-уведомления SmartBin включены!"
+                    );
+
+                    console.log(
+                        "OneSignal ID:",
+                        OneSignal.User.onesignalId
+                    );
+
+                    console.log(
+                        "Subscription ID:",
+                        OneSignal.User.PushSubscription.id
+                    );
+
+                } else {
+
+                    alert(
+                        "Разрешение получено, но подписка ещё не завершена. Подожди немного и проверь снова."
+                    );
+                }
+
+            } else {
+
+                alert(
+                    "Разрешение на уведомления не получено. Проверь настройки браузера."
+                );
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Ошибка подписки OneSignal:",
+                error
+            );
+
+            alert(
+                "Не удалось включить Push-уведомления. Подробности смотри в консоли браузера."
+            );
+
+        } finally {
+
+            if (button) {
+                button.disabled = false;
+                updatePermissionButton();
+            }
+        }
+    }
+
+
+    // =====================================================
+    // ОБНОВЛЕНИЕ КНОПКИ ONESIGNAL
+    // =====================================================
+
+    function updatePermissionButton() {
+
+        const button = document.getElementById(
+            "enableBrowserNotifications"
+        );
+
+        if (!button) return;
+
+        if (!oneSignalInstance) {
+
+            button.textContent =
+                "⏳ Загрузка OneSignal...";
+
+            return;
+        }
+
+        const OneSignal = oneSignalInstance;
+
+        if (!OneSignal.Notifications.isPushSupported()) {
+
+            button.textContent =
+                "⚠️ Push не поддерживается";
+
+            button.disabled = true;
+
+            return;
+        }
+
+        button.disabled = false;
+
+        if (OneSignal.User.PushSubscription.optedIn) {
+
+            button.textContent =
+                "✅ Push-уведомления включены";
+
+        } else if (!OneSignal.Notifications.permission) {
+
+            button.textContent =
+                "🔔 Включить Push-уведомления";
+
+        } else {
+
+            button.textContent =
+                "🔔 Подписаться на Push-уведомления";
+        }
+    }
+
+
+    // =====================================================
+    // BASEROW — ПОЛУЧЕНИЕ УВЕДОМЛЕНИЙ
     // =====================================================
 
     async function fetchNotifications() {
 
         let allResults = [];
-
         let page = 1;
-
         let hasNext = true;
 
         while (hasNext && page <= 10) {
@@ -113,11 +274,10 @@
 
 
     // =====================================================
-    // ПОЛУЧЕНИЕ ДАННЫХ УВЕДОМЛЕНИЯ
+    // ДАННЫЕ УВЕДОМЛЕНИЯ
     // =====================================================
 
     function getNotificationId(item) {
-
         return String(item.id);
     }
 
@@ -140,22 +300,18 @@
 
 
     function getNotificationType(item) {
-
         return item["Тип"] || "Общее";
     }
 
 
     function getNotificationDate(item) {
-
         return item["Дата"] || null;
     }
 
 
     function getFormattedDate(value) {
 
-        if (!value) {
-            return "Дата не указана";
-        }
+        if (!value) return "Дата не указана";
 
         const date = new Date(value);
 
@@ -174,157 +330,10 @@
 
 
     // =====================================================
-    // БРАУЗЕРНЫЕ УВЕДОМЛЕНИЯ
-    // =====================================================
-
-    async function enableBrowserNotifications() {
-
-        if (!("Notification" in window)) {
-
-            alert(
-                "Этот браузер не поддерживает уведомления."
-            );
-
-            return;
-        }
-
-        if (Notification.permission === "granted") {
-
-            alert(
-                "Браузерные уведомления уже включены."
-            );
-
-            updatePermissionButton();
-
-            return;
-        }
-
-        if (Notification.permission === "denied") {
-
-            alert(
-                "Уведомления заблокированы. Разреши их в настройках браузера."
-            );
-
-            return;
-        }
-
-        try {
-
-            const permission =
-                await Notification.requestPermission();
-
-            updatePermissionButton();
-
-            if (permission === "granted") {
-
-                alert(
-                    "✅ Браузерные уведомления включены!"
-                );
-
-            } else {
-
-                alert(
-                    "Разрешение на уведомления не получено."
-                );
-            }
-
-        } catch (error) {
-
-            console.error(
-                "Ошибка разрешения уведомлений:",
-                error
-            );
-        }
-    }
-
-
-    function updatePermissionButton() {
-
-        const button = document.getElementById(
-            "enableBrowserNotifications"
-        );
-
-        if (!button) {
-            return;
-        }
-
-        if (!("Notification" in window)) {
-
-            button.textContent =
-                "Браузер не поддерживает уведомления";
-
-            button.disabled = true;
-
-            return;
-        }
-
-        if (Notification.permission === "granted") {
-
-            button.textContent =
-                "✅ Уведомления Windows включены";
-
-            return;
-        }
-
-        if (Notification.permission === "denied") {
-
-            button.textContent =
-                "⚠️ Уведомления заблокированы";
-
-            return;
-        }
-
-        button.textContent =
-            "🔔 Включить уведомления Windows";
-    }
-
-
-    function showBrowserNotification(item) {
-
-        if (
-            !("Notification" in window) ||
-            Notification.permission !== "granted"
-        ) {
-            return;
-        }
-
-        try {
-
-            const notification =
-                new Notification(
-                    getNotificationTitle(item),
-                    {
-                        body: getNotificationMessage(item),
-                        icon: "favicon.ico"
-                    }
-                );
-
-            notification.onclick = function () {
-
-                window.focus();
-
-                openNotificationPanel();
-
-                notification.close();
-            };
-
-        } catch (error) {
-
-            console.error(
-                "Ошибка браузерного уведомления:",
-                error
-            );
-        }
-    }
-
-
-    // =====================================================
-    // ПРОВЕРКА НОВЫХ УВЕДОМЛЕНИЙ
+    // ОБНАРУЖЕНИЕ НОВЫХ УВЕДОМЛЕНИЙ
     // =====================================================
 
     function detectNewNotifications(items) {
-
-        const newItems = [];
 
         items.forEach(function (item) {
 
@@ -332,24 +341,15 @@
 
             if (!seenIds.has(id)) {
 
-                if (initialized) {
-                    newItems.push(item);
-                }
-
                 seenIds.add(id);
             }
+
         });
 
         saveStoredIds(
             SEEN_STORAGE_KEY,
             seenIds
         );
-
-        newItems.forEach(function (item) {
-
-            showBrowserNotification(item);
-
-        });
     }
 
 
@@ -363,9 +363,7 @@
             "notificationCount"
         );
 
-        if (!counter) {
-            return;
-        }
+        if (!counter) return;
 
         const unreadCount =
             notifications.filter(function (item) {
@@ -377,14 +375,10 @@
             }).length;
 
         counter.textContent =
-            unreadCount > 99
-                ? "99+"
-                : unreadCount;
+            unreadCount > 99 ? "99+" : unreadCount;
 
         counter.style.display =
-            unreadCount > 0
-                ? "flex"
-                : "none";
+            unreadCount > 0 ? "flex" : "none";
     }
 
 
@@ -395,20 +389,15 @@
     function createNotificationElement(item) {
 
         const id = getNotificationId(item);
-
         const title = getNotificationTitle(item);
-
         const message = getNotificationMessage(item);
-
         const type = getNotificationType(item);
 
         const date = getFormattedDate(
             getNotificationDate(item)
         );
 
-        const isUnread =
-            !readIds.has(id);
-
+        const isUnread = !readIds.has(id);
 
         const element =
             document.createElement("div");
@@ -419,16 +408,8 @@
 
         element.dataset.type = type;
 
-        element.setAttribute(
-            "role",
-            "button"
-        );
-
-        element.setAttribute(
-            "tabindex",
-            "0"
-        );
-
+        element.setAttribute("role", "button");
+        element.setAttribute("tabindex", "0");
 
         const titleContainer =
             document.createElement("div");
@@ -436,15 +417,12 @@
         titleContainer.className =
             "notification-item-title";
 
-
         const heading =
             document.createElement("h4");
 
         heading.textContent = title;
 
-
         titleContainer.appendChild(heading);
-
 
         if (isUnread) {
 
@@ -454,38 +432,28 @@
             badge.className =
                 "notification-unread-label";
 
-            badge.textContent =
-                "НОВОЕ";
+            badge.textContent = "НОВОЕ";
 
             titleContainer.appendChild(badge);
         }
-
 
         const paragraph =
             document.createElement("p");
 
         paragraph.textContent = message;
 
-
         const dateElement =
             document.createElement("small");
 
-        dateElement.textContent =
-            date;
-
+        dateElement.textContent = date;
 
         element.appendChild(titleContainer);
-
         element.appendChild(paragraph);
-
         element.appendChild(dateElement);
-
 
         function markThisRead() {
 
-            if (readIds.has(id)) {
-                return;
-            }
+            if (readIds.has(id)) return;
 
             readIds.add(id);
 
@@ -497,12 +465,10 @@
             renderNotifications();
         }
 
-
         element.addEventListener(
             "click",
             markThisRead
         );
-
 
         element.addEventListener(
             "keydown",
@@ -520,7 +486,6 @@
             }
         );
 
-
         return element;
     }
 
@@ -535,12 +500,9 @@
             "notificationList"
         );
 
-        if (!container) {
-            return;
-        }
+        if (!container) return;
 
         container.innerHTML = "";
-
 
         if (notifications.length === 0) {
 
@@ -560,7 +522,6 @@
             return;
         }
 
-
         notifications.forEach(function (item) {
 
             container.appendChild(
@@ -568,7 +529,6 @@
             );
 
         });
-
 
         updateUnreadCount();
     }
@@ -580,9 +540,7 @@
 
     async function loadWorkerNotifications() {
 
-        if (loading) {
-            return;
-        }
+        if (loading) return;
 
         if (typeof baserowRequest !== "function") {
 
@@ -597,9 +555,7 @@
 
         try {
 
-            const items =
-                await fetchNotifications();
-
+            const items = await fetchNotifications();
 
             items.sort(function (a, b) {
 
@@ -614,7 +570,6 @@
                 return dateB - dateA;
             });
 
-
             detectNewNotifications(items);
 
             notifications = items;
@@ -622,7 +577,6 @@
             renderNotifications();
 
             initialized = true;
-
 
         } catch (error) {
 
@@ -632,14 +586,9 @@
             );
 
             const container =
-                document.getElementById(
-                    "notificationList"
-                );
+                document.getElementById("notificationList");
 
-            if (
-                container &&
-                notifications.length === 0
-            ) {
+            if (container && notifications.length === 0) {
 
                 container.innerHTML = `
                     <p class="notifications-empty">
@@ -671,12 +620,10 @@
 
         });
 
-
         saveStoredIds(
             READ_STORAGE_KEY,
             readIds
         );
-
 
         renderNotifications();
     }
@@ -696,9 +643,7 @@
             "notificationBell"
         );
 
-        if (!panel || !bell) {
-            return;
-        }
+        if (!panel || !bell) return;
 
         panel.classList.add("show");
 
@@ -719,9 +664,7 @@
             "notificationBell"
         );
 
-        if (!panel || !bell) {
-            return;
-        }
+        if (!panel || !bell) return;
 
         panel.classList.remove("show");
 
@@ -738,9 +681,7 @@
             "notificationPanel"
         );
 
-        if (!panel) {
-            return;
-        }
+        if (!panel) return;
 
         if (panel.classList.contains("show")) {
 
@@ -775,7 +716,6 @@
                 "enableBrowserNotifications"
             );
 
-
         if (bell) {
 
             bell.addEventListener(
@@ -783,7 +723,6 @@
                 toggleNotificationPanel
             );
         }
-
 
         if (markAllButton) {
 
@@ -793,7 +732,6 @@
             );
         }
 
-
         if (permissionButton) {
 
             permissionButton.addEventListener(
@@ -801,7 +739,6 @@
                 enableBrowserNotifications
             );
         }
-
 
         document.addEventListener(
             "click",
@@ -822,13 +759,11 @@
             }
         );
 
-
         document.addEventListener(
             "keydown",
             function (event) {
 
                 if (event.key === "Escape") {
-
                     closeNotificationPanel();
                 }
             }
@@ -843,7 +778,6 @@
     function startNotifications() {
 
         loadReadIds();
-
         loadSeenIds();
 
         connectNotificationInterface();
@@ -852,12 +786,10 @@
 
         loadWorkerNotifications();
 
-
         setInterval(
             loadWorkerNotifications,
             CHECK_INTERVAL
         );
-
 
         console.log(
             "SmartBin: интерфейс уведомлений запущен."
