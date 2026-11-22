@@ -955,3 +955,15 @@ document.addEventListener(
 
     }
 );
+
+// Регистрация Service Worker для PWA
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register(
+            "/EcoBinSmart/service-worker.js",
+            { scope: "/EcoBinSmart/" }
+        ).catch(error => {
+            console.error("Ошибка регистрации Service Worker:", error);
+        });
+    });
+}
