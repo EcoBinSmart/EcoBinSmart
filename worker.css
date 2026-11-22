@@ -448,71 +448,268 @@ body {
 
     color: white;
 }
-<!-- УВЕДОМЛЕНИЯ -->
-<div class="worker-notifications">
+/* =====================================
+   SMARTBIN — ОБНОВЛЁННЫЙ ИНТЕРФЕЙС
+   УВЕДОМЛЕНИЙ
+===================================== */
 
-    <button
-        class="notification-bell"
-        id="notificationBell"
-        type="button"
-        aria-label="Уведомления"
-        aria-expanded="false"
-    >
-        🔔
-        <span
-            class="notification-count"
-            id="notificationCount"
-            style="display: none;"
-        >0</span>
-    </button>
+.worker-notifications {
+    position: relative;
+    z-index: 1000;
+    margin-left: auto;
+    margin-right: 20px;
+}
 
-    <div
-        class="notification-panel"
-        id="notificationPanel"
-    >
+.notification-bell {
+    position: relative;
+    width: 44px;
+    height: 44px;
 
-        <div class="notification-panel-header">
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-            <div>
-                <h3>Уведомления</h3>
-                <span class="notification-subtitle">
-                    События SmartBin
-                </span>
-            </div>
+    border: 1px solid #e0e8e1;
+    border-radius: 13px;
 
-            <button
-                id="markAllNotificationsRead"
-                type="button"
-            >
-                Прочитать все
-            </button>
+    background: #fff;
+    font-size: 20px;
 
-        </div>
+    cursor: pointer;
+    transition: 0.2s ease;
+}
 
-        <div
-            class="notification-list"
-            id="notificationList"
-        >
-            <p class="notifications-empty">
-                Загрузка уведомлений...
-            </p>
-        </div>
+.notification-bell:hover,
+.notification-bell[aria-expanded="true"] {
+    background: #edf7ef;
+    border-color: #299452;
+}
 
-        <div class="notification-settings">
+.notification-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
 
-            <button
-                id="enableBrowserNotifications"
-                type="button"
-            >
-                🔔 Включить уведомления Windows
-            </button>
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
 
-        </div>
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    </div>
+    border: 2px solid white;
+    border-radius: 20px;
 
-</div>
+    background: #e34b4b;
+    color: white;
 
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.notification-panel {
+    display: none;
+
+    position: absolute;
+    top: 55px;
+    right: 0;
+
+    width: 380px;
+    max-height: 510px;
+
+    background: white;
+
+    border: 1px solid #e3eae4;
+    border-radius: 17px;
+
+    box-shadow: 0 15px 45px rgba(0,0,0,0.13);
+
+    overflow: hidden;
+}
+
+.notification-panel.show {
+    display: flex;
+    flex-direction: column;
+}
+
+.notification-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+    padding: 19px;
+
+    border-bottom: 1px solid #edf0ed;
+}
+
+.notification-panel-header h3 {
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.notification-subtitle {
+    color: #929b94;
+    font-size: 11px;
+}
+
+.notification-panel-header button {
+    border: none;
+    background: none;
+
+    color: #299452;
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.notification-panel-header button:hover {
+    color: #176c38;
+}
+
+.notification-list {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+    padding: 16px 18px;
+
+    border-bottom: 1px solid #edf0ed;
+    border-left: 3px solid transparent;
+
+    background: white;
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.notification-item:hover {
+    background: #f7faf7;
+}
+
+.notification-item.unread {
+    background: #f0f8f1;
+    border-left-color: #299452;
+}
+
+.notification-item[data-type="60%"] {
+    border-left-color: #e5ad45;
+}
+
+.notification-item[data-type="80%"] {
+    border-left-color: #e45d5d;
+}
+
+.notification-item[data-type="Изменение статуса"] {
+    border-left-color: #5294c9;
+}
+
+.notification-item-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.notification-item h4 {
+    font-size: 14px;
+    line-height: 1.4;
+    color: #17221b;
+}
+
+.notification-item p {
+    color: #657169;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.notification-item small {
+    color: #929b94;
+    font-size: 11px;
+}
+
+.notification-unread-label {
+    flex-shrink: 0;
+
+    padding: 4px 7px;
+
+    border-radius: 20px;
+
+    background: #dff1e3;
+    color: #268448;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.notifications-empty {
+    padding: 35px 20px;
+
+    text-align: center;
+
+    color: #89948c;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.notification-settings {
+    padding: 13px;
+
+    border-top: 1px solid #edf0ed;
+}
+
+.notification-settings button {
+    width: 100%;
+    padding: 12px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #eaf5ed;
+    color: #268448;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.notification-settings button:hover {
+    background: #dcefe1;
+}
+
+.notification-settings button:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+@media (max-width: 700px) {
+
+    .worker-notifications {
+        margin-right: 10px;
+    }
+
+    .notification-panel {
+        position: fixed;
+
+        top: 80px;
+        left: 10px;
+        right: 10px;
+
+        width: auto;
+        max-height: calc(100vh - 100px);
+    }
+
+}
 /* =====================================
    КАРТА МУСОРОК — ПЕРЕХОД
 ===================================== */
