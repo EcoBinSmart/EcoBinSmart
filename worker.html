@@ -8,31 +8,39 @@
 
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
 
-  window.oneSignalReady = false;
-  window.oneSignalError = null;
+    window.oneSignalReady = false;
+    window.oneSignalError = null;
 
-  OneSignalDeferred.push(async function(OneSignal) {
-    try {
-      console.log("[OneSignal] SDK загружен");
+    OneSignalDeferred.push(async function(OneSignal) {
+        try {
+            console.log("[OneSignal] SDK загружен");
 
-      await OneSignal.init({
-        appId: "5589e0e4-6c95-4c0b-8523-bc4832c8088a"
-      });
+            await OneSignal.init({
+                appId: "5589e0e4-6c95-4c0b-8523-bc4832c8088a",
 
-      window.oneSignalReady = true;
+                serviceWorkerPath: "OneSignalSDKWorker.js",
 
-      console.log("[OneSignal] Инициализация успешна");
+                serviceWorkerParam: {
+                    scope: "/EcoBinSmart/"
+                }
+            });
 
-    } catch (error) {
-      window.oneSignalError = error;
+            window.oneSignalReady = true;
 
-      console.error("[OneSignal] Ошибка инициализации:", error);
-    }
-  });
+            console.log("[OneSignal] Инициализация успешна");
+
+        } catch (error) {
+            window.oneSignalError = error;
+
+            console.error(
+                "[OneSignal] Ошибка инициализации:",
+                error
+            );
+        }
+    });
 </script>
-
     <title>EcoBinSmart — Рабочая панель</title>
 
     <link rel="stylesheet" href="worker.css">
