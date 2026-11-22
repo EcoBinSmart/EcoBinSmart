@@ -6,6 +6,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "5589e0e4-6c95-4c0b-8523-bc4832c8088a",
+        });
+      });
+    </script>
+
     <title>EcoBinSmart — Рабочая панель</title>
 
     <link rel="stylesheet" href="worker.css">
